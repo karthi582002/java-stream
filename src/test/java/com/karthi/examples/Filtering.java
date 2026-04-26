@@ -5,7 +5,10 @@ import com.karthi.beans.Car;
 import com.karthi.mockdata.MockData;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Filtering {
@@ -13,6 +16,9 @@ public class Filtering {
     @Test
     public void filter() throws Exception {
         List<Car> cars = MockData.getCars();
+        List<Car> carsLessThan20K = cars.stream().filter(car -> car.getPrice() <= 20_000)
+                .toList();
+        carsLessThan20K.forEach(System.out::println);
     }
 
     @Test
@@ -38,21 +44,36 @@ public class Filtering {
     @Test
     public void findFirst() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        OptionalInt number = Arrays.stream(numbers).findFirst();
+        if(number.isPresent()) {
+            System.out.println(number.getAsInt());
+        }
     }
 
     @Test
     public void findAny() throws Exception {
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 10};
+        OptionalInt number = Arrays.stream(numbers)
+                .filter(n -> n > 3)
+                .findAny();
+        System.out.println(number.getAsInt());
     }
 
     @Test
     public void allMatch() throws Exception {
         int[] even = {2, 4, 6, 8, 10};
+        boolean result = Arrays.stream(even)
+                .allMatch(n -> n % 2 == 0);
+        System.out.println(result);
     }
 
     @Test
     public void anyMatch() throws Exception {
         int[] evenAndOneOdd = {2, 4, 6, 8, 10, 11};
+        boolean result = Arrays.stream(evenAndOneOdd)
+                .anyMatch(n -> n % 2 != 0);
+        System.out.println(result);
+
     }
 
 }

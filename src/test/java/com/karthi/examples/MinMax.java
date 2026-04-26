@@ -9,10 +9,18 @@ public class MinMax {
     @Test
     public void min() {
         List<Integer> numbers = List.of(1, 2, 3, 100, 23, 93, 99);
+        Integer min = numbers.stream()
+                .min(Integer::compareTo)
+                .orElse(null);
+        System.out.println(min);
     }
 
     @Test
     public void max() {
         List<Integer> numbers = List.of(1, 2, 3, 100, 23, 93, 99);
+        Integer max = numbers.stream()
+                .max(Integer::compareTo)
+                .orElse(null);
+        System.out.println(max);
     }
 }

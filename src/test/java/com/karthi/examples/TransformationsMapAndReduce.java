@@ -14,6 +14,12 @@ public class TransformationsMapAndReduce {
     @Test
     void yourFirstTransformationWithMap() throws IOException {
         List<Person> people = MockData.getPeople();
+        List<PersonDTO> personDTOS = people.stream()
+                .map(p -> {
+                    return new PersonDTO(p.getId(),p.getFirstName(),p.getAge());
+                }).toList();
+        personDTOS.forEach(System.out::println);
+
     }
 
     @Test
